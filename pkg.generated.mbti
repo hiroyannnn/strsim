@@ -4,6 +4,8 @@ package "hiroyannnn/strsim"
 // Values
 pub fn damerau_levenshtein(String, String) -> Int
 
+pub fn distance(DistanceMetric, String, String) -> Int raise StrsimError
+
 pub fn hamming(String, String) -> Int raise StrsimError
 
 pub fn jaro(String, String) -> Double
@@ -18,6 +20,8 @@ pub fn normalized_levenshtein(String, String) -> Double
 
 pub fn osa_distance(String, String) -> Int
 
+pub fn similarity(SimilarityMetric, String, String) -> Double
+
 pub fn sorensen_dice(String, String) -> Double
 
 // Errors
@@ -27,6 +31,20 @@ pub(all) suberror StrsimError {
 pub impl Show for StrsimError
 
 // Types and methods
+pub(all) enum DistanceMetric {
+  Hamming
+  Levenshtein
+  Osa
+  DamerauLevenshtein
+  Lcs
+}
+
+pub(all) enum SimilarityMetric {
+  NormalizedLevenshtein
+  Jaro
+  JaroWinkler
+  SorensenDice
+}
 
 // Type aliases
 
