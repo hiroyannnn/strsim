@@ -36,7 +36,6 @@ pub(all) enum DistanceMetric {
   Levenshtein
   Osa
   DamerauLevenshtein
-  Lcs
 }
 
 pub(all) enum SimilarityMetric {

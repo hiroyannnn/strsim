@@ -90,6 +90,16 @@ test "jaro/identical" {
 }
 
 ///|
+test "jaro/single char identical" {
+  inspect(jaro("a", "a"), content="1")
+}
+
+///|
+test "jaro/single char different" {
+  inspect(jaro("a", "b"), content="0")
+}
+
+///|
 test "jaro_winkler/cheeseburger" {
   let result = jaro_winkler("cheeseburger", "cheese fries")
   assert_true(result > 0.865 && result < 0.867)
@@ -109,6 +119,11 @@ test "jaro_winkler/one empty" {
 ///|
 test "jaro_winkler/identical" {
   inspect(jaro_winkler("abc", "abc"), content="1")
+}
+
+///|
+test "jaro_winkler/single char identical" {
+  inspect(jaro_winkler("a", "a"), content="1")
 }
 
 ///|
@@ -259,11 +274,6 @@ test "distance/DamerauLevenshtein" {
 }
 
 ///|
-test "distance/Lcs" {
-  inspect(try? distance(Lcs, "ABCD", "ACBAD"), content="Ok(3)")
-}
-
-///|
 test "similarity/NormalizedLevenshtein" {
   let result = similarity(NormalizedLevenshtein, "kitten", "sitting")
   assert_true(result > 0.571 && result < 0.572)
@@ -283,4 +293,34 @@ test "similarity/JaroWinkler" {
 ///|
 test "similarity/SorensenDice" {
   inspect(similarity(SorensenDice, "", ""), content="1")
+}
+
+///|
+test "unicode/levenshtein" {
+  inspect(levenshtein("日本語", "日本人"), content="1")
+}
+
+///|
+test "unicode/jaro" {
+  inspect(jaro("日本語", "日本語"), content="1")
+}
+
+///|
+test "unicode/hamming" {
+  inspect(try? hamming("あいう", "あいえ"), content="Ok(1)")
+}
+
+///|
+test "unicode/sorensen_dice" {
+  inspect(
+    sorensen_dice("日本語テスト", "日本語テスト"),
+    content="1",
+  )
+}
+
+///|
+test "jaro_winkler/prefix_weight_clamped" {
+  // prefix_weight > 0.25 は 0.25 にクランプされ、結果が 1.0 を超えない
+  let result = jaro_winkler("abc", "abd", prefix_weight=0.5)
+  assert_true(result <= 1.0)
 }

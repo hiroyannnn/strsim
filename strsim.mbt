@@ -9,7 +9,6 @@ pub(all) enum DistanceMetric {
   Levenshtein
   Osa
   DamerauLevenshtein
-  Lcs
 }
 
 ///|
@@ -31,7 +30,6 @@ pub fn distance(
     Levenshtein => levenshtein(a, b)
     Osa => osa_distance(a, b)
     DamerauLevenshtein => damerau_levenshtein(a, b)
-    Lcs => lcs_length(a, b)
   }
 }
 
@@ -126,7 +124,7 @@ pub fn jaro(a : String, b : String) -> Double {
     return 0.0
   }
   let max_len = if a_len > b_len { a_len } else { b_len }
-  let search_range = max_len / 2 - 1
+  let search_range = if max_len / 2 > 0 { max_len / 2 - 1 } else { 0 }
   let a_matched = Array::make(a_len, false)
   let b_matched = Array::make(b_len, false)
   let mut matches = 0.0
@@ -173,6 +171,7 @@ pub fn jaro_winkler(
   b : String,
   prefix_weight? : Double = 0.1,
 ) -> Double {
+  let weight = @cmp.minimum(prefix_weight, 0.25)
   let jaro_score = jaro(a, b)
   if jaro_score <= 0.7 {
     return jaro_score
@@ -191,7 +190,7 @@ pub fn jaro_winkler(
       break
     }
   }
-  jaro_score + prefix_weight * common_prefix * (1.0 - jaro_score)
+  jaro_score + weight * common_prefix * (1.0 - jaro_score)
 }
 
 ///|
@@ -254,8 +253,7 @@ pub fn damerau_levenshtein(a : String, b : String) -> Int {
     return a_len
   }
   let width = a_len + 2
-  let height = b_len + 2
-  let d = Array::make(width * height, 0)
+  let d = Array::make(width * (b_len + 2), 0)
   let max_dist = a_len + b_len
   d[0] = max_dist
   for i in 0..=a_len {
