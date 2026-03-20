@@ -1,0 +1,7 @@
+import {
+  "hiroyannnn/strsim" @lib,
+}
+
+options(
+  "is-main": true,
+)

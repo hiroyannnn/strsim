@@ -208,7 +208,7 @@ pub fn osa_distance(a : String, b : String) -> Int {
   let mut prev_two : Array[Int] = Array::new(capacity=b_len + 1)
   let mut prev : Array[Int] = Array::new(capacity=b_len + 1)
   let mut curr : Array[Int] = Array::make(b_len + 1, 0)
-  for j in 0..=b_len {
+  for j in 0..<=b_len {
     prev_two.push(j)
     prev.push(j)
   }
@@ -256,18 +256,18 @@ pub fn damerau_levenshtein(a : String, b : String) -> Int {
   let d = Array::make(width * (b_len + 2), 0)
   let max_dist = a_len + b_len
   d[0] = max_dist
-  for i in 0..=a_len {
+  for i in 0..<=a_len {
     d[i + 1 + 0 * width] = max_dist
     d[i + 1 + 1 * width] = i
   }
-  for j in 0..=b_len {
+  for j in 0..<=b_len {
     d[0 + (j + 1) * width] = max_dist
     d[1 + (j + 1) * width] = j
   }
   let last_row : Map[Char, Int] = {}
-  for i in 1..=a_len {
+  for i in 1..<=a_len {
     let mut db = 0
-    for j in 1..=b_len {
+    for j in 1..<=b_len {
       let k = last_row.get(b_chars[j - 1]).unwrap_or(0)
       let ins = d[i + (j + 1) * width] + 1
       let del = d[i + 1 + j * width] + 1
@@ -327,15 +327,15 @@ pub fn lcs_length(a : String, b : String) -> Int {
   }
   let prev = Array::make(b_len + 1, 0)
   let curr = Array::make(b_len + 1, 0)
-  for i in 1..=a_len {
-    for j in 1..=b_len {
+  for i in 1..<=a_len {
+    for j in 1..<=b_len {
       if a_chars[i - 1] == b_chars[j - 1] {
         curr[j] = prev[j - 1] + 1
       } else {
         curr[j] = @cmp.maximum(prev[j], curr[j - 1])
       }
     }
-    for j in 0..=b_len {
+    for j in 0..<=b_len {
       prev[j] = curr[j]
       curr[j] = 0
     }

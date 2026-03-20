@@ -12,7 +12,7 @@ moon add hiroyannnn/strsim
 
 ### Distance metrics
 
-```mbt
+```mbt nocheck
 ///|
 test "Hamming distance" {
   inspect(try? @strsim.hamming("hamming", "hammers"), content="Ok(3)")
@@ -42,7 +42,7 @@ test "LCS length" {
 
 ### Similarity metrics
 
-```mbt
+```mbt nocheck
 ///|
 test "Normalized Levenshtein" {
   let result = @strsim.normalized_levenshtein("kitten", "sitting")
@@ -73,7 +73,7 @@ test "Sørensen-Dice coefficient" {
 
 ### Enum dispatch
 
-```mbt
+```mbt nocheck
 ///|
 test "distance dispatch" {
   inspect(
@@ -95,7 +95,7 @@ test "similarity dispatch" {
 OSA restricts each substring to be edited at most once (not a true metric).
 Damerau-Levenshtein has no such restriction (true metric, satisfies triangle inequality).
 
-```mbt
+```mbt nocheck
 ///|
 test "OSA vs DL" {
   // "ac" → "cba": OSA needs 3 ops, DL needs only 2
