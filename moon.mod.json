@@ -1,0 +1,9 @@
+{
+  "name": "hiroyannnn/strsim",
+  "version": "0.1.0",
+  "readme": "README.mbt.md",
+  "repository": "https://github.com/hiroyannnn/strsim",
+  "license": "Apache-2.0",
+  "keywords": ["string", "similarity", "levenshtein", "hamming"],
+  "description": "String similarity algorithms for MoonBit"
+}

@@ -1,0 +1,22 @@
+// Generated using `moon info`, DON'T EDIT IT
+package "hiroyannnn/strsim"
+
+// Values
+pub fn hamming(String, String) -> Int raise StrsimError
+
+pub fn levenshtein(String, String) -> Int
+
+pub fn normalized_levenshtein(String, String) -> Double
+
+// Errors
+pub(all) suberror StrsimError {
+  UnequalLength
+}
+pub impl Show for StrsimError
+
+// Types and methods
+
+// Type aliases
+
+// Traits
+
