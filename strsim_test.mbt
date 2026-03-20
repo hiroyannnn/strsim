@@ -320,7 +320,12 @@ test "unicode/sorensen_dice" {
 
 ///|
 test "jaro_winkler/prefix_weight_clamped" {
-  // prefix_weight > 0.25 は 0.25 にクランプされ、結果が 1.0 を超えない
-  let result = jaro_winkler("abc", "abd", prefix_weight=0.5)
-  assert_true(result <= 1.0)
+  // prefix_weight は [0.0, 0.25] にクランプされる
+  let result_high = jaro_winkler("abc", "abd", prefix_weight=0.5)
+  assert_true(result_high <= 1.0)
+  let result_neg = jaro_winkler("abc", "abd", prefix_weight=-0.5)
+  assert_true(result_neg >= 0.0)
+  // デフォルト値と同じ結果になること
+  let result_default = jaro_winkler("abc", "abd")
+  assert_true(result_neg <= result_default)
 }

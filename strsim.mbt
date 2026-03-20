@@ -171,7 +171,7 @@ pub fn jaro_winkler(
   b : String,
   prefix_weight? : Double = 0.1,
 ) -> Double {
-  let weight = @cmp.minimum(prefix_weight, 0.25)
+  let weight = @cmp.maximum(0.0, @cmp.minimum(prefix_weight, 0.25))
   let jaro_score = jaro(a, b)
   if jaro_score <= 0.7 {
     return jaro_score

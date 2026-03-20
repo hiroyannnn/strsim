@@ -25,13 +25,6 @@ test "Levenshtein distance" {
 }
 
 ///|
-test "Normalized Levenshtein" {
-  let result = @strsim.normalized_levenshtein("kitten", "sitting")
-  // 1.0 - 3/7 ≈ 0.571
-  assert_true(result > 0.571 && result < 0.572)
-}
-
-///|
 test "OSA distance" {
   inspect(@strsim.osa_distance("ac", "cba"), content="3")
 }
@@ -50,6 +43,13 @@ test "LCS length" {
 ### Similarity metrics
 
 ```mbt
+///|
+test "Normalized Levenshtein" {
+  let result = @strsim.normalized_levenshtein("kitten", "sitting")
+  // 1.0 - 3/7 ≈ 0.571
+  assert_true(result > 0.571 && result < 0.572)
+}
+
 ///|
 test "Jaro similarity" {
   let result = @strsim.jaro("Friedrich Nietzsche", "Jean-Paul Sartre")
