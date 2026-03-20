@@ -134,6 +134,10 @@ test "OSA vs DL" {
 | Sørensen-Dice | `sorensen_dice` | `sorensen_dice` | `SorensenDice().similarity` |
 | LCS | `lcs_length` | — | `LongestCommonSubsequence().distance` |
 
+## Acknowledgments
+
+Algorithm implementations are derived from [strsim-rs](https://github.com/rapidfuzz/strsim-rs) (MIT License). See [NOTICE](NOTICE) for details.
+
 ## License
 
 Apache-2.0
