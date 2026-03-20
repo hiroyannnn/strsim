@@ -114,7 +114,7 @@ test "OSA vs DL" {
 | `osa_distance` | `(String, String) -> Int` | Optimal String Alignment distance |
 | `damerau_levenshtein` | `(String, String) -> Int` | Damerau-Levenshtein distance (true metric) |
 | `jaro` | `(String, String) -> Double` | Jaro similarity |
-| `jaro_winkler` | `(String, String, prefix_weight? : Double) -> Double` | Jaro-Winkler similarity (weight clamped to 0.25) |
+| `jaro_winkler` | `(String, String, prefix_weight? : Double) -> Double` | Jaro-Winkler similarity (weight clamped to [0.0, 0.25]) |
 | `sorensen_dice` | `(String, String) -> Double` | Sørensen-Dice coefficient |
 | `lcs_length` | `(String, String) -> Int` | Longest Common Subsequence length |
 | `distance` | `(DistanceMetric, String, String) -> Int raise StrsimError` | Dispatch by enum |
