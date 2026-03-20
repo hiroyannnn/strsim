@@ -66,3 +66,47 @@ test "normalized_levenshtein/equal strings" {
 test "normalized_levenshtein/completely different" {
   inspect(normalized_levenshtein("abc", "xyz"), content="0")
 }
+
+///|
+test "jaro/nietzsche-sartre" {
+  let result = jaro("Friedrich Nietzsche", "Jean-Paul Sartre")
+  assert_true(result > 0.391 && result < 0.393)
+}
+
+///|
+test "jaro/empty strings" {
+  inspect(jaro("", ""), content="1")
+}
+
+///|
+test "jaro/one empty" {
+  inspect(jaro("", "abc"), content="0")
+  inspect(jaro("abc", ""), content="0")
+}
+
+///|
+test "jaro/identical" {
+  inspect(jaro("abc", "abc"), content="1")
+}
+
+///|
+test "jaro_winkler/cheeseburger" {
+  let result = jaro_winkler("cheeseburger", "cheese fries")
+  assert_true(result > 0.865 && result < 0.867)
+}
+
+///|
+test "jaro_winkler/empty strings" {
+  inspect(jaro_winkler("", ""), content="1")
+}
+
+///|
+test "jaro_winkler/one empty" {
+  inspect(jaro_winkler("", "abc"), content="0")
+  inspect(jaro_winkler("abc", ""), content="0")
+}
+
+///|
+test "jaro_winkler/identical" {
+  inspect(jaro_winkler("abc", "abc"), content="1")
+}
