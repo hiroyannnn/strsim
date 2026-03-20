@@ -10,11 +10,15 @@ pub fn jaro(String, String) -> Double
 
 pub fn jaro_winkler(String, String, prefix_weight? : Double) -> Double
 
+pub fn lcs_length(String, String) -> Int
+
 pub fn levenshtein(String, String) -> Int
 
 pub fn normalized_levenshtein(String, String) -> Double
 
 pub fn osa_distance(String, String) -> Int
+
+pub fn sorensen_dice(String, String) -> Double
 
 // Errors
 pub(all) suberror StrsimError {

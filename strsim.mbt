@@ -246,3 +246,59 @@ pub fn damerau_levenshtein(a : String, b : String) -> Int {
   }
   d[a_len + 1 + (b_len + 1) * width]
 }
+
+///|
+pub fn sorensen_dice(a : String, b : String) -> Double {
+  let a_chars = a.iter().filter(fn(c) { not(c.is_whitespace()) }).collect()
+  let b_chars = b.iter().filter(fn(c) { not(c.is_whitespace()) }).collect()
+  let a_len : Int = a_chars.length()
+  let b_len : Int = b_chars.length()
+  if a_chars == b_chars {
+    return 1.0
+  }
+  if a_len < 2 || b_len < 2 {
+    return 0.0
+  }
+  let a_bigrams : Map[String, Int] = {}
+  for i in 0..<(a_len - 1) {
+    let key = Char::to_string(a_chars[i]) + Char::to_string(a_chars[i + 1])
+    a_bigrams[key] = a_bigrams.get(key).unwrap_or(0) + 1
+  }
+  let mut intersection = 0
+  for i in 0..<(b_len - 1) {
+    let key = Char::to_string(b_chars[i]) + Char::to_string(b_chars[i + 1])
+    let count = a_bigrams.get(key).unwrap_or(0)
+    if count > 0 {
+      a_bigrams[key] = count - 1
+      intersection += 1
+    }
+  }
+  (2 * intersection).to_double() / (a_len + b_len - 2).to_double()
+}
+
+///|
+pub fn lcs_length(a : String, b : String) -> Int {
+  let a_chars = a.to_array()
+  let b_chars = b.to_array()
+  let a_len = a_chars.length()
+  let b_len = b_chars.length()
+  if a_len == 0 || b_len == 0 {
+    return 0
+  }
+  let prev = Array::make(b_len + 1, 0)
+  let curr = Array::make(b_len + 1, 0)
+  for i in 1..=a_len {
+    for j in 1..=b_len {
+      if a_chars[i - 1] == b_chars[j - 1] {
+        curr[j] = prev[j - 1] + 1
+      } else {
+        curr[j] = @cmp.maximum(prev[j], curr[j - 1])
+      }
+    }
+    for j in 0..=b_len {
+      prev[j] = curr[j]
+      curr[j] = 0
+    }
+  }
+  prev[b_len]
+}

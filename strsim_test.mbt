@@ -180,3 +180,56 @@ test "osa vs damerau_levenshtein" {
   inspect(osa_distance("ac", "cba"), content="3")
   inspect(damerau_levenshtein("ac", "cba"), content="2")
 }
+
+///|
+test "sorensen_dice/web applications" {
+  let result = sorensen_dice("web applications", "applications of the web")
+  assert_true(result > 0.787 && result < 0.789)
+}
+
+///|
+test "sorensen_dice/empty strings" {
+  inspect(sorensen_dice("", ""), content="1")
+}
+
+///|
+test "sorensen_dice/one empty" {
+  inspect(sorensen_dice("a", ""), content="0")
+  inspect(sorensen_dice("", "a"), content="0")
+}
+
+///|
+test "sorensen_dice/identical" {
+  inspect(sorensen_dice("abc", "abc"), content="1")
+}
+
+///|
+test "sorensen_dice/single char" {
+  inspect(sorensen_dice("a", "b"), content="0")
+}
+
+///|
+test "lcs_length/ABCD-ACBAD" {
+  inspect(lcs_length("ABCD", "ACBAD"), content="3")
+}
+
+///|
+test "lcs_length/empty strings" {
+  inspect(lcs_length("", ""), content="0")
+}
+
+///|
+test "lcs_length/one empty" {
+  inspect(lcs_length("", "abc"), content="0")
+  inspect(lcs_length("abc", ""), content="0")
+}
+
+///|
+test "lcs_length/equal strings" {
+  inspect(lcs_length("abc", "abc"), content="3")
+}
+
+///|
+test "lcs_length/no common" {
+  inspect(lcs_length("abc", "xyz"), content="0")
+}
