@@ -1,13 +1,43 @@
 // Generated using `moon info`, DON'T EDIT IT
 package "hiroyannnn/strsim"
 
+import {
+  "hiroyannnn/strsim/lib",
+}
+
 // Values
+pub fn damerau_levenshtein(String, String) -> Int
+
+pub fn distance(@lib.DistanceMetric, String, String) -> Int raise @lib.StrsimError
+
+pub fn hamming(String, String) -> Int raise @lib.StrsimError
+
+pub fn jaro(String, String) -> Double
+
+pub fn jaro_winkler(String, String, prefix_weight? : Double) -> Double
+
+pub fn lcs_length(String, String) -> Int
+
+pub fn levenshtein(String, String) -> Int
+
+pub fn normalized_levenshtein(String, String) -> Double
+
+pub fn osa_distance(String, String) -> Int
+
+pub fn similarity(@lib.SimilarityMetric, String, String) -> Double
+
+pub fn sorensen_dice(String, String) -> Double
 
 // Errors
 
 // Types and methods
 
 // Type aliases
+pub using @lib {type DistanceMetric}
+
+pub using @lib {type SimilarityMetric}
+
+pub using @lib {type StrsimError}
 
 // Traits
 

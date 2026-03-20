@@ -11,7 +11,7 @@ moon add hiroyannnn/strsim
 Import in `moon.pkg`:
 ```
 import {
-  "hiroyannnn/strsim/lib" @lib,
+  "hiroyannnn/strsim" @strsim,
 }
 ```
 
@@ -22,28 +22,28 @@ import {
 ```mbt nocheck
 ///|
 test "Hamming distance" {
-  inspect(try? @lib.hamming("hamming", "hammers"), content="Ok(3)")
-  inspect(try? @lib.hamming("hamming", "ham"), content="Err(UnequalLength)")
+  inspect(try? @strsim.hamming("hamming", "hammers"), content="Ok(3)")
+  inspect(try? @strsim.hamming("hamming", "ham"), content="Err(UnequalLength)")
 }
 
 ///|
 test "Levenshtein distance" {
-  inspect(@lib.levenshtein("kitten", "sitting"), content="3")
+  inspect(@strsim.levenshtein("kitten", "sitting"), content="3")
 }
 
 ///|
 test "OSA distance" {
-  inspect(@lib.osa_distance("ac", "cba"), content="3")
+  inspect(@strsim.osa_distance("ac", "cba"), content="3")
 }
 
 ///|
 test "Damerau-Levenshtein distance" {
-  inspect(@lib.damerau_levenshtein("ac", "cba"), content="2")
+  inspect(@strsim.damerau_levenshtein("ac", "cba"), content="2")
 }
 
 ///|
 test "LCS length" {
-  inspect(@lib.lcs_length("ABCD", "ACBAD"), content="3")
+  inspect(@strsim.lcs_length("ABCD", "ACBAD"), content="3")
 }
 ```
 
@@ -52,26 +52,28 @@ test "LCS length" {
 ```mbt nocheck
 ///|
 test "Normalized Levenshtein" {
-  let result = @lib.normalized_levenshtein("kitten", "sitting")
+  let result = @strsim.normalized_levenshtein("kitten", "sitting")
   // 1.0 - 3/7 ≈ 0.571
   assert_true(result > 0.571 && result < 0.572)
 }
 
 ///|
 test "Jaro similarity" {
-  let result = @lib.jaro("Friedrich Nietzsche", "Jean-Paul Sartre")
+  let result = @strsim.jaro("Friedrich Nietzsche", "Jean-Paul Sartre")
   assert_true(result > 0.391 && result < 0.393)
 }
 
 ///|
 test "Jaro-Winkler similarity" {
-  let result = @lib.jaro_winkler("cheeseburger", "cheese fries")
+  let result = @strsim.jaro_winkler("cheeseburger", "cheese fries")
   assert_true(result > 0.865 && result < 0.867)
 }
 
 ///|
 test "Sørensen-Dice coefficient" {
-  let result = @lib.sorensen_dice("web applications", "applications of the web")
+  let result = @strsim.sorensen_dice(
+    "web applications", "applications of the web",
+  )
   assert_true(result > 0.787 && result < 0.789)
 }
 ```
@@ -82,14 +84,14 @@ test "Sørensen-Dice coefficient" {
 ///|
 test "distance dispatch" {
   inspect(
-    try? @lib.distance(@lib.Levenshtein, "kitten", "sitting"),
+    try? @strsim.distance(@strsim.Levenshtein, "kitten", "sitting"),
     content="Ok(3)",
   )
 }
 
 ///|
 test "similarity dispatch" {
-  inspect(@lib.similarity(@lib.Jaro, "abc", "abc"), content="1")
+  inspect(@strsim.similarity(@strsim.Jaro, "abc", "abc"), content="1")
 }
 ```
 
@@ -104,8 +106,8 @@ Damerau-Levenshtein has no such restriction (true metric, satisfies triangle ine
 ///|
 test "OSA vs DL" {
   // "ac" → "cba": OSA needs 3 ops, DL needs only 2
-  inspect(@lib.osa_distance("ac", "cba"), content="3")
-  inspect(@lib.damerau_levenshtein("ac", "cba"), content="2")
+  inspect(@strsim.osa_distance("ac", "cba"), content="3")
+  inspect(@strsim.damerau_levenshtein("ac", "cba"), content="2")
 }
 ```
 

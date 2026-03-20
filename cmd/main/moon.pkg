@@ -1,5 +1,5 @@
 import {
-  "hiroyannnn/strsim/lib" @lib,
+  "hiroyannnn/strsim" @strsim,
 }
 
 options(

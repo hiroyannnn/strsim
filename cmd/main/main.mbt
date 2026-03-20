@@ -1,4 +1,4 @@
 ///|
 fn main {
-  println(@lib.levenshtein("kitten", "sitting"))
+  println(@strsim.levenshtein("kitten", "sitting"))
 }

@@ -1,1 +1,3 @@
-
+import {
+  "hiroyannnn/strsim/lib" @lib,
+}
