@@ -2,6 +2,8 @@
 package "hiroyannnn/strsim"
 
 // Values
+pub fn damerau_levenshtein(String, String) -> Int
+
 pub fn hamming(String, String) -> Int raise StrsimError
 
 pub fn jaro(String, String) -> Double
@@ -11,6 +13,8 @@ pub fn jaro_winkler(String, String, prefix_weight? : Double) -> Double
 pub fn levenshtein(String, String) -> Int
 
 pub fn normalized_levenshtein(String, String) -> Double
+
+pub fn osa_distance(String, String) -> Int
 
 // Errors
 pub(all) suberror StrsimError {

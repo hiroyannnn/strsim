@@ -110,3 +110,73 @@ test "jaro_winkler/one empty" {
 test "jaro_winkler/identical" {
   inspect(jaro_winkler("abc", "abc"), content="1")
 }
+
+///|
+test "osa_distance/ac-cba" {
+  inspect(osa_distance("ac", "cba"), content="3")
+}
+
+///|
+test "osa_distance/kitten-sitting" {
+  inspect(osa_distance("kitten", "sitting"), content="3")
+}
+
+///|
+test "osa_distance/empty strings" {
+  inspect(osa_distance("", ""), content="0")
+}
+
+///|
+test "osa_distance/one empty" {
+  inspect(osa_distance("", "abc"), content="3")
+  inspect(osa_distance("abc", ""), content="3")
+}
+
+///|
+test "osa_distance/equal strings" {
+  inspect(osa_distance("abc", "abc"), content="0")
+}
+
+///|
+test "osa_distance/transposition" {
+  inspect(osa_distance("ab", "ba"), content="1")
+}
+
+///|
+test "damerau_levenshtein/ac-cba" {
+  inspect(damerau_levenshtein("ac", "cba"), content="2")
+}
+
+///|
+test "damerau_levenshtein/kitten-sitting" {
+  inspect(damerau_levenshtein("kitten", "sitting"), content="3")
+}
+
+///|
+test "damerau_levenshtein/empty strings" {
+  inspect(damerau_levenshtein("", ""), content="0")
+}
+
+///|
+test "damerau_levenshtein/one empty" {
+  inspect(damerau_levenshtein("", "abc"), content="3")
+  inspect(damerau_levenshtein("abc", ""), content="3")
+}
+
+///|
+test "damerau_levenshtein/equal strings" {
+  inspect(damerau_levenshtein("abc", "abc"), content="0")
+}
+
+///|
+test "damerau_levenshtein/transposition" {
+  inspect(damerau_levenshtein("ab", "ba"), content="1")
+}
+
+///|
+test "osa vs damerau_levenshtein" {
+  // OSA: restricted (each substring edited at most once) → 3
+  // DL: unrestricted (true metric) → 2
+  inspect(osa_distance("ac", "cba"), content="3")
+  inspect(damerau_levenshtein("ac", "cba"), content="2")
+}
