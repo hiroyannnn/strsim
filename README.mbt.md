@@ -11,7 +11,7 @@ moon add hiroyannnn/strsim
 Import in `moon.pkg`:
 ```
 import {
-  "hiroyannnn/strsim" @strsim,
+  "hiroyannnn/strsim",
 }
 ```
 
@@ -19,11 +19,16 @@ import {
 
 ### Distance metrics
 
-```mbt nocheck
+```mbt check
 ///|
 test "Hamming distance" {
-  inspect(try? @strsim.hamming("hamming", "hammers"), content="Ok(3)")
-  inspect(try? @strsim.hamming("hamming", "ham"), content="Err(UnequalLength)")
+  inspect(@strsim.hamming("hamming", "hammers"), content="3")
+  // Hamming distance is only defined for equal-length strings
+  try @strsim.hamming("hamming", "ham") catch {
+    e => inspect(e, content="UnequalLength")
+  } noraise {
+    _ => fail("expected UnequalLength")
+  }
 }
 
 ///|
@@ -49,7 +54,7 @@ test "LCS length" {
 
 ### Similarity metrics
 
-```mbt nocheck
+```mbt check
 ///|
 test "Normalized Levenshtein" {
   let result = @strsim.normalized_levenshtein("kitten", "sitting")
@@ -80,18 +85,15 @@ test "Sørensen-Dice coefficient" {
 
 ### Enum dispatch
 
-```mbt nocheck
+```mbt check
 ///|
 test "distance dispatch" {
-  inspect(
-    try? @strsim.distance(@strsim.Levenshtein, "kitten", "sitting"),
-    content="Ok(3)",
-  )
+  inspect(@strsim.distance(Levenshtein, "kitten", "sitting"), content="3")
 }
 
 ///|
 test "similarity dispatch" {
-  inspect(@strsim.similarity(@strsim.Jaro, "abc", "abc"), content="1")
+  inspect(@strsim.similarity(Jaro, "abc", "abc"), content="1")
 }
 ```
 
@@ -102,7 +104,7 @@ test "similarity dispatch" {
 OSA restricts each substring to be edited at most once (not a true metric).
 Damerau-Levenshtein has no such restriction (true metric, satisfies triangle inequality).
 
-```mbt nocheck
+```mbt check
 ///|
 test "OSA vs DL" {
   // "ac" → "cba": OSA needs 3 ops, DL needs only 2

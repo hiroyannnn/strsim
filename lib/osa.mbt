@@ -10,8 +10,8 @@ pub fn osa_distance(a : String, b : String) -> Int {
   if b_len == 0 {
     return a_len
   }
-  let mut prev_two : Array[Int] = Array::new(capacity=b_len + 1)
-  let mut prev : Array[Int] = Array::new(capacity=b_len + 1)
+  let mut prev_two : Array[Int] = Array(capacity=b_len + 1)
+  let mut prev : Array[Int] = Array(capacity=b_len + 1)
   let mut curr : Array[Int] = Array::make(b_len + 1, 0)
   for j in 0..<=b_len {
     prev_two.push(j)

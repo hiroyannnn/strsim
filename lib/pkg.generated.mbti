@@ -28,6 +28,8 @@ pub fn sorensen_dice(String, String) -> Double
 pub(all) suberror StrsimError {
   UnequalLength
 }
+pub fn StrsimError::output(Self, &Logger) -> Unit
+pub fn StrsimError::to_string(Self) -> String
 pub impl Show for StrsimError
 
 // Types and methods
@@ -48,4 +50,3 @@ pub(all) enum SimilarityMetric {
 // Type aliases
 
 // Traits
-

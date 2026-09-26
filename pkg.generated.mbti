@@ -40,4 +40,3 @@ pub using @lib {type SimilarityMetric}
 pub using @lib {type StrsimError}
 
 // Traits
-

@@ -22,7 +22,7 @@ pub fn damerau_levenshtein(a : String, b : String) -> Int {
     d[0 + (j + 1) * width] = max_dist
     d[1 + (j + 1) * width] = j
   }
-  let last_row : Map[Char, Int] = {}
+  let last_row : Map[Char, Int] = Map([])
   for i in 1..<=a_len {
     let mut db = 0
     for j in 1..<=b_len {
