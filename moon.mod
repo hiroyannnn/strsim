@@ -1,0 +1,24 @@
+name = "hiroyannnn/strsim"
+
+version = "0.2.1"
+
+readme = "README.mbt.md"
+
+repository = "https://github.com/hiroyannnn/strsim"
+
+license = "Apache-2.0"
+
+keywords = [
+  "string",
+  "similarity",
+  "distance",
+  "levenshtein",
+  "hamming",
+  "jaro",
+  "jaro-winkler",
+  "damerau-levenshtein",
+  "sorensen-dice",
+  "lcs",
+]
+
+description = "String similarity and distance algorithms for MoonBit (Hamming, Levenshtein, Jaro, Jaro-Winkler, OSA, Damerau-Levenshtein, Sørensen-Dice, LCS)"

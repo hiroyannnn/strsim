@@ -4,11 +4,14 @@ pub(all) suberror StrsimError {
 }
 
 ///|
-pub impl Show for StrsimError with output(self, logger) {
+pub impl Show for StrsimError with fn output(self, logger) {
   match self {
     UnequalLength => logger.write_string("UnequalLength")
   }
 }
+
+///|
+pub extend StrsimError with Show::{to_string, output}
 
 ///|
 pub(all) enum DistanceMetric {

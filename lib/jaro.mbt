@@ -19,7 +19,7 @@ pub fn jaro(a : String, b : String) -> Double {
     let lo = if i > search_range { i - search_range } else { 0 }
     let hi = @cmp.minimum(i + search_range + 1, b_len)
     for j = lo; j < hi; j = j + 1 {
-      if not(b_matched[j]) && a_chars[i] == b_chars[j] {
+      if !b_matched[j] && a_chars[i] == b_chars[j] {
         a_matched[i] = true
         b_matched[j] = true
         matches += 1.0
@@ -34,7 +34,7 @@ pub fn jaro(a : String, b : String) -> Double {
   let mut k = 0
   for i in 0..<a_len {
     if a_matched[i] {
-      while not(b_matched[k]) {
+      while !b_matched[k] {
         k += 1
       }
       if a_chars[i] != b_chars[k] {

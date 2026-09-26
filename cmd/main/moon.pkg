@@ -1,7 +1,5 @@
 import {
-  "hiroyannnn/strsim" @strsim,
+  "hiroyannnn/strsim",
 }
 
-options(
-  "is-main": true,
-)
+pkgtype(kind: "executable")

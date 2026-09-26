@@ -1,24 +1,28 @@
 ///|
 test "hamming/basic" {
-  inspect(try? hamming("hamming", "hammers"), content="Ok(3)")
+  inspect(@lib.hamming("hamming", "hammers"), content="3")
 }
 
 ///|
 test "hamming/unequal length" {
-  inspect(try? hamming("hamming", "ham"), content="Err(UnequalLength)")
+  try @lib.hamming("hamming", "ham") catch {
+    e => inspect(e, content="UnequalLength")
+  } noraise {
+    _ => fail("expected hamming to raise UnequalLength")
+  }
 }
 
 ///|
 test "hamming/empty strings" {
-  inspect(try? hamming("", ""), content="Ok(0)")
+  inspect(@lib.hamming("", ""), content="0")
 }
 
 ///|
 test "hamming/identical" {
-  inspect(try? hamming("abc", "abc"), content="Ok(0)")
+  inspect(@lib.hamming("abc", "abc"), content="0")
 }
 
 ///|
 test "unicode/hamming" {
-  inspect(try? hamming("あいう", "あいえ"), content="Ok(1)")
+  inspect(@lib.hamming("あいう", "あいえ"), content="1")
 }

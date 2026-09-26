@@ -1,45 +1,46 @@
 ///|
 test "distance/Hamming" {
-  inspect(try? distance(Hamming, "hamming", "hammers"), content="Ok(3)")
-  inspect(
-    try? distance(Hamming, "hamming", "ham"),
-    content="Err(UnequalLength)",
-  )
+  inspect(@lib.distance(Hamming, "hamming", "hammers"), content="3")
+  try @lib.distance(Hamming, "hamming", "ham") catch {
+    e => inspect(e, content="UnequalLength")
+  } noraise {
+    _ => fail("expected distance(Hamming) to raise UnequalLength")
+  }
 }
 
 ///|
 test "distance/Levenshtein" {
-  inspect(try? distance(Levenshtein, "kitten", "sitting"), content="Ok(3)")
+  inspect(@lib.distance(Levenshtein, "kitten", "sitting"), content="3")
 }
 
 ///|
 test "distance/Osa" {
-  inspect(try? distance(Osa, "ac", "cba"), content="Ok(3)")
+  inspect(@lib.distance(Osa, "ac", "cba"), content="3")
 }
 
 ///|
 test "distance/DamerauLevenshtein" {
-  inspect(try? distance(DamerauLevenshtein, "ac", "cba"), content="Ok(2)")
+  inspect(@lib.distance(DamerauLevenshtein, "ac", "cba"), content="2")
 }
 
 ///|
 test "similarity/NormalizedLevenshtein" {
-  let result = similarity(NormalizedLevenshtein, "kitten", "sitting")
+  let result = @lib.similarity(NormalizedLevenshtein, "kitten", "sitting")
   assert_true(result > 0.571 && result < 0.572)
 }
 
 ///|
 test "similarity/Jaro" {
-  inspect(similarity(Jaro, "abc", "abc"), content="1")
+  inspect(@lib.similarity(Jaro, "abc", "abc"), content="1")
 }
 
 ///|
 test "similarity/JaroWinkler" {
-  let result = similarity(JaroWinkler, "cheeseburger", "cheese fries")
+  let result = @lib.similarity(JaroWinkler, "cheeseburger", "cheese fries")
   assert_true(result > 0.865 && result < 0.867)
 }
 
 ///|
 test "similarity/SorensenDice" {
-  inspect(similarity(SorensenDice, "", ""), content="1")
+  inspect(@lib.similarity(SorensenDice, "", ""), content="1")
 }
